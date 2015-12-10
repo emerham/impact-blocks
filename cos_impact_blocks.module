@@ -11,7 +11,7 @@ function cos_impact_blocks_block_info(){
   $blocks['impact_social'] = array(
     'info' => t('Impact Social Icons'),
     'status' => TRUE,
-    'region' => 'sidebar_first',
+    'region' => 'nav',
     'visibility' => BLOCK_VISIBILITY_LISTED,
     'pages' => '<front>',
   );
@@ -117,8 +117,8 @@ function cos_impact_blocks_block_view($delta = '') {
   switch($delta){
     case 'impact_social':
       $block['subject'] = t('');
-      #$block['content'] = cos_impact_contents($delta);
-      $result = cos_impact_contents($delta);
+      //$block['content'] = cos_impact_contents($delta);
+      //$result = cos_impact_contents($delta);
       $items = array();
       $items['twitter'] = variable_get('imp_twitter');
       $items['facebook'] = variable_get('imp_facebook');
@@ -161,18 +161,10 @@ function cos_impact_contents($which_block){
  */
 function cos_impact_blocks_theme($existing, $type, $theme, $path) {
   $module_path = drupal_get_path('module', 'cos_impact_blocks');
-  /*
-  return array(
-    'block-cos-impact-blocks-impact-social' => array(
-      'variables' => array(),
-      'template' => 'block-cos-impact-blocks-impact-social'
-    ),
-  );
-  */
-  $themes['cos_impact_social_front'] = array( // replace module--delta with your block template suggestions
+  $themes['cos_impact_social_front'] = array(
     'variables' => array('items' => NULL),
-    'template' => 'block--cos-impact-blocks--impact-social', // the name fo your .tpl.php file.
-    'path' => $module_path . '/templates',   // path to the template in your module
+    'template' => 'block--cos-impact-blocks--impact-social',
+    'path' => $module_path . '/templates',
   );
 
   return $themes;
