@@ -1,0 +1,31 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: brabhamm
+ * Date: 12/7/15
+ * Time: 9:41 AM
+ */
+/**
+ * Implements hook_install().
+ */
+function cos_impact_blocks_install() {
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function cos_impact_blocks_uninstall() {
+  variable_del('link_title_facebook');
+  variable_del('link_url_facebook');
+  variable_del('link_title_twitter');
+  variable_del('link_url_twitter');
+  variable_del('link_title_instagram');
+  variable_del('link_url_instagram');
+  variable_del('imp_twitter');
+  variable_del('imp_facebook');
+  variable_del('imp_instagram');
+  // Inform the user of the module removal.
+  $t = get_t();
+  drupal_set_message($t('Variables removed.'));
+}

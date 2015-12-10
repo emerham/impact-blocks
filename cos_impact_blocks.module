@@ -1,0 +1,179 @@
+<?php
+/**
+* @file
+* Creates a block to house the Social Media Icons.
+*/
+/**
+ * Implements block_info()
+ * This will create my blocks and place them into the appropriate sections.
+ */
+function cos_impact_blocks_block_info(){
+  $blocks['impact_social'] = array(
+    'info' => t('Impact Social Icons'),
+    'status' => TRUE,
+    'region' => 'sidebar_first',
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+    'pages' => '<front>',
+  );
+  return $blocks;
+}
+
+function cos_impact_blocks_block_configure($delta = ''){
+  $form = array();
+  if ($delta == 'impact_social') {
+    $form['imp_twitter'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Twitter URL'),
+      '#size' => 60,
+      '#description' => t('Enter your groups Twitter page url.'),
+      '#default_value' => variable_get('imp_twitter'),
+    );
+    $form['imp_facebook'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Facebook URL'),
+      '#size' => 60,
+      '#description' => t('Enter your facebook\'s group page url.'),
+      '#default_value' => variable_get('imp_facebook'),
+    );
+    $form['imp_instagram'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Instagram URL'),
+      '#size' => 60,
+      '#description' => t('Enter your groups Instagram page url.'),
+      '#default_value' => variable_get('imp_instagram'),
+    );
+    /*
+    // Start container for links
+    $form['link_container'] = array(
+      '#type' => 'container',
+      '#attributes' => array('class' => array('some-class')),
+      '#tree' => TRUE,
+    );
+    $form['link_container']['link_twitter'] = array(
+      '#type' => 'link_field',
+      '#title' => t('Twitter URL'),
+      '#field_name' => 'link_field_twitter',
+      '#language' => 'und',
+      '#field_parents' => array(),
+      '#delta' => 0,
+      '#description' => t('Enter your group\'s twitter page url.'),
+      '#default_value' => array(
+        'title' => variable_get('link_title_twitter', 'twitter'),
+        'url' => variable_get('link_url_twitter', ''),
+      ),
+    );
+    $form['link_container']['link_facebook'] = array(
+      '#type' => 'link_field',
+      '#title' => t('Facebook URL'),
+      '#field_name' => 'link_field_facebook',
+      '#language' => 'und',
+      '#field_parents' => array(),
+      '#delta' => 0,
+      '#description' => t('Enter your facebook\'s group page url.'),
+      '#default_value' => array(
+        'title' => variable_get('link_title_facebook', 'facebook'),
+        'url' => variable_get('link_url_facebook', ''),
+      ),
+    );
+    $form['link_container']['link_instagram'] = array(
+      '#type' => 'link_field',
+      '#title' => t('Instagram URL'),
+      '#field_name' => 'link_field_instagram',
+      '#language' => 'und',
+      '#field_parents' => array(),
+      '#delta' => 0,
+      '#description' => t('Enter your group\'s Instagram page url.'),
+      '#default_value' => array(
+        'title' => variable_get('link_title_instagram', 'Instagram'),
+        'url' => variable_get('link_url_instagram', ''),
+      ),
+    );
+    */
+  }
+  return $form;
+}
+
+function cos_impact_blocks_block_save($delta = '', $edit = array()){
+  if ($delta == 'impact_social'){
+    variable_set('imp_twitter', $edit['imp_twitter']);
+    variable_set('imp_facebook', $edit['imp_facebook']);
+    variable_set('imp_instagram', $edit['imp_instagram']);
+    # Twitter url data
+    //variable_set('link_title_twitter', $edit['link_container']['link_twitter']['title']);
+    //variable_set('link_url_twitter', $edit['link_container']['link_twitter']['url']);
+    # Facebook url data
+    //variable_set('link_title_facebook', $edit['link_container']['link_facebook']['title']);
+    //variable_set('link_url_facebook', $edit['link_container']['link_facebook']['url']);
+    # Instagram url data
+    //variable_set('link_title_instagram', $edit['link_container']['link_instagram']['title']);
+    //variable_set('link_url_instagram', $edit['link_container']['link_instagram']['url']);
+  }
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function cos_impact_blocks_block_view($delta = '') {
+  switch($delta){
+    case 'impact_social':
+      $block['subject'] = t('');
+      #$block['content'] = cos_impact_contents($delta);
+      $result = cos_impact_contents($delta);
+      $items = array();
+      $items['twitter'] = variable_get('imp_twitter');
+      $items['facebook'] = variable_get('imp_facebook');
+      $items['instagram'] = variable_get('imp_instagram');
+      /*
+      foreach($result as $title => $link){
+        $items[] = array(
+          'data' => $link,
+          );
+      }*/
+      /*
+      $block['content'] = array(
+        //'#theme' => 'item_list__impact_social',
+        '#theme' => 'cos_impact_social_front',
+        '#items' => $items,
+      );*/
+      $block['content'] = theme('cos_impact_social_front', array('items' => $items));
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Implements hook_ctools_content_subtype_alter().
+ */
+function cos_impact_contents($which_block){
+  switch ($which_block){
+    case 'impact_social':
+      $results = array (
+        'twitter' => variable_get('link_url_twitter'),
+        'facebook' => variable_get('link_url_facebook'),
+        'instagram' => variable_get('link_url_instagram'),
+      );
+      return $results;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function cos_impact_blocks_theme($existing, $type, $theme, $path) {
+  $module_path = drupal_get_path('module', 'cos_impact_blocks');
+  /*
+  return array(
+    'block-cos-impact-blocks-impact-social' => array(
+      'variables' => array(),
+      'template' => 'block-cos-impact-blocks-impact-social'
+    ),
+  );
+  */
+  $themes['cos_impact_social_front'] = array( // replace module--delta with your block template suggestions
+    'variables' => array('items' => NULL),
+    'template' => 'block--cos-impact-blocks--impact-social', // the name fo your .tpl.php file.
+    'path' => $module_path . '/templates',   // path to the template in your module
+  );
+
+  return $themes;
+}
