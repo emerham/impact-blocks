@@ -4,6 +4,42 @@
 * Creates a block to house the Social Media Icons.
 */
 /**
+ * Implements hook_permission().
+ */
+function cos_impact_blocks_permission() {
+  return array(
+    'administer impact tools' => array(
+      'title' => t('Administer Impact Tools Settings'),
+      'description' => t('Perform tasks related to the Impact Tools block'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function cos_impact_blocks_menu(){
+  $items = array();
+
+  $items['admin/config/impact'] = array(
+    'title' => t('Impact Tools Box'),
+    'description' => t('Administer Impact Blocks'),
+    'access arguments' => array('administer impact tools'),
+  );
+
+  $items['admin/config/impact/manage'] = array(
+    'title' => t('Impact Tools Settings'),
+    'description' => t('Change the icons, links and sort order of the tools block'),
+    'access arguments' => array('administer impact tools'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('cos_impact_tools_settings_form'),
+    'file' => 'cos_impact_tools_settings.inc',
+  );
+
+  return $items;
+}
+
+/**
  * Implements block_info()
  * This will create my blocks and place them into the appropriate sections.
  */
@@ -165,6 +201,10 @@ function cos_impact_blocks_theme($existing, $type, $theme, $path) {
     'variables' => array('items' => NULL),
     'template' => 'block--cos-impact-blocks--impact-social',
     'path' => $module_path . '/templates',
+  );
+  $themes['cos_impact_tools_settings_form'] = array(
+    'render element' => 'form',
+    'file' => 'cos_impact_tools_settings.inc',
   );
 
   return $themes;
