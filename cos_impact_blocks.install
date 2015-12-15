@@ -5,11 +5,103 @@
  * Date: 12/7/15
  * Time: 9:41 AM
  */
+
+/**
+ * Implements hook_schema.
+ */
+function cos_impact_blocks_schema(){
+  $schema['cos_impact_blocks'] = array(
+    'description' => 'Stores data used for the Tools block',
+    'fields' => array(
+      'id' => array(
+        'description' => 'The primary identifier for each item',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'icon' => array(
+        'description' => 'The font awesome icon class selected',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'title' => array(
+        'description' => 'The title used for each icon on the block',
+        'type' => 'varchar',
+        'length' => 61,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'url' => array(
+        'description' => 'The destination URL for each icon',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'weight' => array(
+        'description' => 'The sortable weight for this item',
+        'type' => 'int',
+        'length' => 11,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  return $schema;
+}
+
+
 /**
  * Implements hook_install().
  */
 function cos_impact_blocks_install() {
+  // Ensure translation don't bgreak at install time.
+  $t = get_t();
 
+  // Insert some values into custom table.
+  $rows = array(
+    array(
+      'icon' => $t('fa-list'),
+      'title' => $t('MAJORS'),
+      'url' => $t('/academics'),
+    ),
+    array(
+      'icon' => $t('fa-medkit'),
+      'title' => $t('PRE-HEALTH'),
+      'url' => $t('/premed'),
+    ),
+    array(
+      'icon' => $t('fa-paper-plane'),
+      'title' => $t('APPLY NOW'),
+      'url' => $t('/future/apply-now'),
+    ),
+    array(
+      'icon' => $t('fa-life-ring'),
+      'title' => $t('ADVISING'),
+      'url' => $t('/premed'),
+    ),
+    array(
+      'icon' => $t('fa-money'),
+      'title' => $t('SCHOLARSHIPS'),
+      'url' => $t('/current/scholarships'),
+    ),
+    array(
+      'icon' => $t('fa-graduation-cap'),
+      'title' => $t('JOBS'),
+      'url' => $t('#'),
+    ),
+  );
+
+  // Check if our table exists before attempting to put in data.
+  if (db_table_exists('cos_impact_blocks')){
+    foreach ($rows as $row) {
+      db_insert('cos_impact_blocks')->fields($row)->execute();
+    }
+  }
 }
 
 /**
@@ -25,7 +117,9 @@ function cos_impact_blocks_uninstall() {
   variable_del('imp_twitter');
   variable_del('imp_facebook');
   variable_del('imp_instagram');
+  db_drop_table('cos_impact_blocks');
   // Inform the user of the module removal.
   $t = get_t();
   drupal_set_message($t('Variables removed.'));
+  drupal_set_message($t('Table was dropped.'));
 }
