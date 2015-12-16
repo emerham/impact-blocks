@@ -51,6 +51,13 @@ function cos_impact_blocks_block_info(){
     'visibility' => BLOCK_VISIBILITY_LISTED,
     'pages' => '<front>',
   );
+  $blocks['impact_tools'] = array(
+    'info' => t('Impact Tools'),
+    'status' => TRUE,
+    'region' => 'sidebar_first',
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+    'pages' => '<front>',
+  );
   return $blocks;
 }
 
@@ -171,14 +178,26 @@ function cos_impact_blocks_block_view($delta = '') {
         '#theme' => 'cos_impact_social_front',
         '#items' => $items,
       );*/
-      $block['content'] = theme('cos_impact_social_front', array('items' => $items));
+      $block['content'] = theme(
+        'cos_impact_social_front', array(
+        'items' => $items)
+      );
+      break;
+    case 'impact_tools':
+      $block['subject'] =t('');
+      $items = array();
+      $block['content'] = theme(
+        'cos_impact_tools_front', array(
+        'items' => $items)
+      );
       break;
   }
+
   return $block;
 }
 
 /**
- * Implements hook_ctools_content_subtype_alter().
+ * Custom Function to get block content
  */
 function cos_impact_contents($which_block){
   switch ($which_block){
@@ -205,6 +224,11 @@ function cos_impact_blocks_theme($existing, $type, $theme, $path) {
   $themes['cos_impact_tools_settings_form'] = array(
     'render element' => 'form',
     'file' => 'cos_impact_tools_settings.inc',
+  );
+  $themes['cos_impact_tools_front'] = array(
+    'variables' => array('items' => NULL),
+    'template' => 'block--cos-impact-blocks--impact-tools',
+    'path' => $module_path . '/templates',
   );
 
   return $themes;
