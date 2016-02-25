@@ -61,6 +61,20 @@ function cos_impact_tools_settings_form($form, &$form_state){
       ),
     );
   }
+  $form['last_button'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Text for the Blue Button'),
+    '#required' => TRUE,
+    '#description' => t(''),
+    '#default_value' => variable_get('last_button_text', t('Beyond the Classroom')),
+  );
+  $form['last_button_link'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Blue Button Link'),
+    '#required' => TRUE,
+    '#description' => t('Link destination you wish this to go to.'),
+    '#default_value' => variable_get('last_button_link', t('#')),
+  );
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
     '#type' => 'submit',
@@ -80,6 +94,7 @@ function cos_impact_tools_settings_form_validate($form, &$form_state){
  */
 function theme_cos_impact_tools_settings_form($variables){
   $form = $variables['form'];
+  $output = drupal_render($form['overview']);
   $rows = array();
   foreach (element_children($form['cos_impact_tools']) as $id) {
     $form['cos_impact_tools'][$id]['weight']['#attributes']['class'] = array('toolbox-item-weight');
@@ -101,7 +116,7 @@ function theme_cos_impact_tools_settings_form($variables){
   );
 
   $table_id = 'toolbox-item-weight';
-  $output = theme('table', array(
+  $output .= theme('table', array(
     'header' => $header,
     'rows' => $rows,
     'attributes' => array('id' => $table_id),
@@ -117,6 +132,8 @@ function theme_cos_impact_tools_settings_form($variables){
  * @param $form_state
  */
 function cos_impact_tools_settings_form_submit($form, &$form_state){
+  variable_set('last_button_text', $form_state['values']['last_button']);
+  variable_set('last_button_link', $form_state['values']['last_button_link']);
   foreach ($form_state['values']['cos_impact_tools'] as $id => $item){
     //db_query(
     //  "UPDATE {cos_impact_blocks} SET weight = :weight WHERE id = :id",

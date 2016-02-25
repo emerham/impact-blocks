@@ -33,6 +33,8 @@ function cos_impact_blocks_menu(){
     'access arguments' => array('administer impact tools'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('cos_impact_tools_settings_form'),
+    'type' => MENU_LOCAL_TASK | MENU_NORMAL_ITEM,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
     'file' => 'cos_impact_tools_settings.inc',
   );
 
@@ -160,8 +162,7 @@ function cos_impact_blocks_block_view($delta = '') {
   switch($delta){
     case 'impact_social':
       $block['subject'] = t('');
-      //$block['content'] = cos_impact_contents($delta);
-      //$result = cos_impact_contents($delta);
+
       $items = array();
       $items['twitter'] = variable_get('imp_twitter');
       $items['facebook'] = variable_get('imp_facebook');
@@ -172,23 +173,49 @@ function cos_impact_blocks_block_view($delta = '') {
           'data' => $link,
           );
       }*/
-      /*
+
       $block['content'] = array(
         //'#theme' => 'item_list__impact_social',
         '#theme' => 'cos_impact_social_front',
         '#items' => $items,
-      );*/
+      );
+      /*
       $block['content'] = theme(
         'cos_impact_social_front', array(
         'items' => $items)
       );
+      */
       break;
+    /*
+     * This block will be for the toolbox block that will contain the
+     *  icons for different options.
+     */
     case 'impact_tools':
       $block['subject'] =t('');
       $items = array();
+      $query = cos_impact_contents($delta);
+      $i=0;
+      foreach ($query as $item) {
+        $items[$i]['title'] = check_plain($item->title);
+        $items[$i]['icon'] = check_plain($item->icon);
+        $items[$i]['url'] = check_plain($item->url);
+        $i++;
+      }
+/*
       $block['content'] = theme(
         'cos_impact_tools_front', array(
         'items' => $items)
+      );
+*/
+      $block['content'] = array(
+        '#theme' => 'cos_impact_tools_front',
+        '#items' => $items,
+        '#contextual_links' => array(
+          'cos_impact_blocks' => array(
+            'admin/config/impact/manage',
+            array(0),
+          ),
+        ),
       );
       break;
   }
@@ -207,6 +234,16 @@ function cos_impact_contents($which_block){
         'facebook' => variable_get('link_url_facebook'),
         'instagram' => variable_get('link_url_instagram'),
       );
+      return $results;
+    case 'impact_tools':
+      $query = db_select('cos_impact_blocks', 'cos')
+        ->fields('cos', array('icon'))
+        ->fields('cos', array('title'))
+        ->fields('cos', array('url'))
+        ->fields('cos', array('weight'))
+        ->orderBy('weight', 'ASEC');
+      $data = $query->execute();
+      $results = $data;
       return $results;
   }
 }

@@ -117,6 +117,8 @@ function cos_impact_blocks_uninstall() {
   variable_del('imp_twitter');
   variable_del('imp_facebook');
   variable_del('imp_instagram');
+  variable_del('last_button_text');
+  variable_del('last_button_url');
   db_drop_table('cos_impact_blocks');
   // Inform the user of the module removal.
   $t = get_t();
