@@ -9,7 +9,7 @@
 /**
  * Implements hook_schema.
  */
-function cos_impact_blocks_schema(){
+function cos_impact_blocks_schema() {
   $schema['cos_impact_blocks'] = array(
     'description' => 'Stores data used for the Tools block',
     'fields' => array(
@@ -97,7 +97,7 @@ function cos_impact_blocks_install() {
   );
 
   // Check if our table exists before attempting to put in data.
-  if (db_table_exists('cos_impact_blocks')){
+  if (db_table_exists('cos_impact_blocks')) {
     foreach ($rows as $row) {
       db_insert('cos_impact_blocks')->fields($row)->execute();
     }
