@@ -1,0 +1,91 @@
+#block-cos-impact-blocks-impact-social {
+  position: relative;
+}
+
+.imp-social-icons {
+  position: absolute;
+  z-index: 201;
+  top: 7px;
+  right: 7px;
+  color: #fff;
+}
+
+.imp-social-icons a#facebook {
+  margin: 0 10px;
+}
+
+.imp-social-icons a {
+  color: #fff;
+  font-size: 24px;
+}
+
+a.icon:hover,
+a.icon:focus {
+  color: #c34500;
+}
+
+.toolbox-container {
+  display: none;
+}
+
+.mobile-toolbox-container {
+  margin: 20px 0 0 0;
+}
+
+.toolbox {
+  text-align: center;
+  width: 31%;
+  float: left;
+  margin-right: 5px;
+  font-size: 35px;
+}
+
+.toolbox a {
+  color: #333;
+  text-decoration: none;
+}
+
+.toolbox:hover a,
+.toolbox:focus a {
+  color: #c34500;
+}
+
+.toolbox img {
+  width: 40px;
+}
+
+.toolbox p {
+  font-size: 12px !important;
+}
+
+.beyond {
+  width: 70%;
+  display: block;
+  margin: 25px auto 15px auto;
+  padding: 13px 7px;
+  text-align: center;
+  background: #385e86;
+  text-decoration: none;
+}
+
+.beyond:hover {
+  background: #c34500;
+  text-decoration: none;
+}
+
+a.beyond {
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (min-width: 768px) {
+  .toolbox-container {
+    display: block;
+  }
+}
+
+@media (min-width: 1200px) {
+  .toolbox {
+    width: 31%;
+  }
+}

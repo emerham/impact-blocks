@@ -4,3 +4,4 @@ core = 7.x
 package = OSU
 configure = admin/config/impact/manage
 files[] = cos_impact_tools_settings.inc
+stylesheets[all][] = css/impact_tools.css
