@@ -1,14 +1,16 @@
 <?php
 /**
+ * @file
  * Created by PhpStorm.
- * User: brabhamm
- * Date: 12/11/15
- * Time: 9:08 AM
+ * User: brabhamm.
+ * Date: 12/11/15.
+ * Time: 9:08 AM.
  */
+
 /**
  * Implements hook_form().
  */
-function cos_impact_tools_settings_form($form, &$form_state){
+function cos_impact_tools_settings_form($form, &$form_state) {
   $form = array();
   $form['cos_impact_tools']['#tree'] = TRUE;
   $form['overview'] = array(
@@ -59,13 +61,25 @@ function cos_impact_tools_settings_form($form, &$form_state){
         '#title_display' => 'invisible',
         '#default_value' => check_plain($item->weight),
       ),
+      'remove' => array(
+        '#id' => 'row_' . $item->id,
+        '#name' => 'row_' . $item->id,
+        '#type' => 'submit',
+        '#value' => t('Remove'),
+        '#submit' => array('cos_impact_tools_delete_row'),
+      ),
     );
   }
+  $form['add_new_row'] = array(
+    '#type' => 'submit',
+    '#value' => t('Add New Row'),
+    '#submit' => array('cos_impact_tools_add_row'),
+  );
   $form['last_button'] = array(
     '#type' => 'textfield',
     '#title' => t('Text for the Blue Button'),
     '#required' => TRUE,
-    '#description' => t(''),
+    '#description' => t('Text to be displayed in the Blue Box below tools.'),
     '#default_value' => variable_get('last_button_text', t('Beyond the Classroom')),
   );
   $form['last_button_link'] = array(
@@ -79,20 +93,18 @@ function cos_impact_tools_settings_form($form, &$form_state){
   $form['actions']['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Save Changes'),
-    );
+  );
   return $form;
 }
 
-function cos_impact_tools_settings_form_validate($form, &$form_state){
+function cos_impact_tools_settings_form_validate($form, &$form_state) {
 
 }
+
 /**
- * custom theme function for table drag.
- * @param $variables
- * @return string
- * @throws \Exception
+ * Implements hook_settings_form().
  */
-function theme_cos_impact_tools_settings_form($variables){
+function theme_cos_impact_tools_settings_form($variables) {
   $form = $variables['form'];
   $output = drupal_render($form['overview']);
   $rows = array();
@@ -104,6 +116,7 @@ function theme_cos_impact_tools_settings_form($variables){
         drupal_render($form['cos_impact_tools'][$id]['page_title']),
         drupal_render($form['cos_impact_tools'][$id]['page_url']),
         drupal_render($form['cos_impact_tools'][$id]['weight']),
+        drupal_render($form['cos_impact_tools'][$id]['remove']),
       ),
       'class' => array('draggable'),
     );
@@ -113,6 +126,7 @@ function theme_cos_impact_tools_settings_form($variables){
     t('Title'),
     t('URL'),
     t('Weight'),
+    t('Remove'),
   );
 
   $table_id = 'toolbox-item-weight';
@@ -127,14 +141,13 @@ function theme_cos_impact_tools_settings_form($variables){
 }
 
 /**
- * Implements hook_submit.
- * @param $form
- * @param $form_state
+ * Implements hook_form_submit().
+ *
  */
-function cos_impact_tools_settings_form_submit($form, &$form_state){
+function cos_impact_tools_settings_form_submit($form, &$form_state) {
   variable_set('last_button_text', $form_state['values']['last_button']);
   variable_set('last_button_link', $form_state['values']['last_button_link']);
-  foreach ($form_state['values']['cos_impact_tools'] as $id => $item){
+  foreach ($form_state['values']['cos_impact_tools'] as $id => $item) {
     //db_query(
     //  "UPDATE {cos_impact_blocks} SET weight = :weight WHERE id = :id",
     //  array(':weight' => $item['weight'], ':id' => $id)
@@ -150,4 +163,25 @@ function cos_impact_tools_settings_form_submit($form, &$form_state){
       ->condition('id', $id)
       ->execute();
   }
+  drupal_set_message(t('Impact Tools Options have been saved.'), 'status');
+}
+
+/**
+ * Custom submit handler to redirect user away to new form.
+ */
+function cos_impact_tools_add_row($form, &$form_state) {
+  unset($_GET['destination']);
+  unset($form_state['rebuild']);
+  $form_state['redirect'] = 'admin/config/impact/add';
+}
+
+/**
+ * Custom function to redirect over and delete an item from the table.
+ */
+function cos_impact_tools_delete_row($form, &$form_state) {
+  unset($_GET['destination']);
+  unset($form_state['rebuild']);
+  //dpm($form_state['triggering_element']);
+  //dpm(drupal_substr($form_state['triggering_element']['#id'], 4));
+  $form_state['redirect'] = 'admin/config/impact/' . drupal_substr($form_state['triggering_element']['#id'], 4) . '/delete';
 }
