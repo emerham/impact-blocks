@@ -44,11 +44,11 @@ function cos_impact_blocks_menu() {
     'type' => MENU_CALLBACK,
     'file' => 'cos_impact_tools.add.inc',
   );
-  $items['admin/config/impact/%box_id/delete'] = array(
+  $items['admin/config/impact/delete/%row_data'] = array(
     'title' => t('Remove an Impact Box.'),
     'description' => t('Remove an Impact tool box to the home page block.'),
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('cos_impact_remove', 3),
+    'page arguments' => array('cos_impact_remove_row_form', 4),
     'access arguments' => array('administer impact tools'),
     'type' => MENU_CALLBACK,
     'file' => 'cos_impact_tools.remove.inc',
@@ -292,4 +292,13 @@ function cos_impact_blocks_theme($existing, $type, $theme, $path) {
   );
 
   return $themes;
+}
+
+function row_data_load($row_id){
+  $results = db_select('cos_impact_blocks', 'cos')
+    ->fields('cos', array('id', 'title', 'url', 'icon'))
+    ->condition('id', $row_id, '=')
+    ->execute()
+    ->fetchAssoc();
+  return $results;
 }

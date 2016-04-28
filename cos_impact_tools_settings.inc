@@ -181,7 +181,7 @@ function cos_impact_tools_add_row($form, &$form_state) {
 function cos_impact_tools_delete_row($form, &$form_state) {
   unset($_GET['destination']);
   unset($form_state['rebuild']);
-  //dpm($form_state['triggering_element']);
-  //dpm(drupal_substr($form_state['triggering_element']['#id'], 4));
-  $form_state['redirect'] = 'admin/config/impact/' . drupal_substr($form_state['triggering_element']['#id'], 4) . '/delete';
+  $form_state['redirect'] = 'admin/config/impact/delete/' . drupal_substr($form_state['triggering_element']['#id'], 4);
+  //drupal_goto('admin/config/impact/delete/', array(drupal_substr($form_state['triggering_element']['#id'], 4)));
+
 }
