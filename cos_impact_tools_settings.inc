@@ -67,6 +67,13 @@ function cos_impact_tools_settings_form($form, &$form_state) {
         '#type' => 'submit',
         '#value' => t('Remove'),
         '#submit' => array('cos_impact_tools_delete_row'),
+        '#attributes' => array(
+          'class' => array(
+            'btn',
+            'btn-danger',
+            'cos-btn-danger',
+          ),
+        ),
       ),
     );
   }
@@ -74,6 +81,13 @@ function cos_impact_tools_settings_form($form, &$form_state) {
     '#type' => 'submit',
     '#value' => t('Add New Row'),
     '#submit' => array('cos_impact_tools_add_row'),
+    '#attributes' => array(
+      'class' => array(
+        'btn',
+        'btn-success',
+        'cos-btn-success',
+      ),
+    ),
   );
   $form['last_button'] = array(
     '#type' => 'textfield',
@@ -182,6 +196,4 @@ function cos_impact_tools_delete_row($form, &$form_state) {
   unset($_GET['destination']);
   unset($form_state['rebuild']);
   $form_state['redirect'] = 'admin/config/impact/delete/' . drupal_substr($form_state['triggering_element']['#id'], 4);
-  //drupal_goto('admin/config/impact/delete/', array(drupal_substr($form_state['triggering_element']['#id'], 4)));
-
 }
