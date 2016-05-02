@@ -1,92 +1,80 @@
 #block-cos-impact-blocks-impact-social {
   position: relative;
 }
-
 .imp-social-icons {
-  color: #fff;
+  color: #ffffff;
   position: absolute;
   right: 7px;
   top: 7px;
   z-index: 201;
 }
-
 .imp-social-icons a#facebook {
   margin: 0 10px;
 }
-
 .imp-social-icons a {
-  color: #fff;
+  color: #ffffff;
   font-size: 24px;
   transition: all, 0.3s;
 }
-
-a.icon:hover,
+a.icon:hover {
+  color: #c34500;
+}
 a.icon:focus {
   color: #c34500;
 }
-
 .toolbox-container {
   display: none;
 }
-
 .mobile-toolbox-container {
   margin: 20px 0 0 0;
 }
-
 .toolbox {
-  text-align: center;
-  width: 31%;
   float: left;
   font-size: 35px;
   margin-right: 5px;
+  text-align: center;
+  width: 31%;
 }
-
 .toolbox a {
-  color: #333;
+  color: #333333;
   text-decoration: none;
   transition: all, 0.3s;
 }
-
-.toolbox:hover a,
+.toolbox:hover a {
+  color: #c34500;
+}
 .toolbox:focus a {
   color: #c34500;
 }
-
 .toolbox img {
   width: 40px;
 }
-
 .toolbox p {
   font-size: 12px !important;
 }
-
 .beyond {
-  width: 70%;
+  background: #385e86;
   display: block;
   margin: 25px auto 15px auto;
   padding: 13px 7px;
   text-align: center;
-  background: #385e86;
   text-decoration: none;
   transition: all, 0.3s;
+  width: 70%;
 }
-
 .beyond:hover {
   background: #c34500;
   text-decoration: none;
 }
-
 a.beyond {
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
 }
-
 @media (min-width: 768px) {
   .toolbox-container {
     display: block;
   }
 }
-
 @media (min-width: 1200px) {
   .toolbox {
     width: 31%;

@@ -1,0 +1,105 @@
+// Color variables (appears count calculates by raw css)
+@osu-orange: #c34500; // Appears 5 times
+@white: #fff;
+
+// Width variables (appears count calculates by raw css)
+@width2: 31%; // Appears 2 times
+@break1: 768px;
+@break2: 1200px;
+#block-cos-impact-blocks-impact-social {
+  position: relative;
+}
+
+.imp-social-icons {
+  color: @white;
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  z-index: 201;
+  a#facebook {
+    margin: 0 10px;
+  }
+  a {
+    color: @white;
+    font-size: 24px;
+    transition: all, 0.3s;
+  }
+}
+
+a.icon {
+  &:hover {
+    color: @osu-orange;
+  }
+  &:focus {
+    color: @osu-orange;
+  }
+}
+
+.toolbox-container {
+  display: none;
+}
+
+.mobile-toolbox-container {
+  margin: 20px 0 0 0;
+}
+
+.toolbox {
+  float: left;
+  font-size: 35px;
+  margin-right: 5px;
+  text-align: center;
+  width: @width2;
+  a {
+    color: #333333;
+    text-decoration: none;
+    transition: all, 0.3s;
+  }
+  &:hover {
+    a {
+      color: @osu-orange;
+    }
+  }
+  &:focus {
+    a {
+      color: @osu-orange;
+    }
+  }
+  img {
+    width: 40px;
+  }
+  p {
+    font-size: 12px !important;
+  }
+}
+
+.beyond {
+  background: #385e86;
+  display: block;
+  margin: 25px auto 15px auto;
+  padding: 13px 7px;
+  text-align: center;
+  text-decoration: none;
+  transition: all, 0.3s;
+  width: 70%;
+  &:hover {
+    background: @osu-orange;
+    text-decoration: none;
+  }
+}
+
+a.beyond {
+  color: @white;
+  text-decoration: none;
+}
+
+@media (min-width: @break1) {
+  .toolbox-container {
+    display: block;
+  }
+}
+
+@media (min-width: @break2) {
+  .toolbox {
+    width: 31%;
+  }
+}
