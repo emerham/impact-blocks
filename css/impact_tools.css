@@ -1,8 +1,8 @@
 #block-cos-impact-blocks-impact-social {
-  position: relative;
+  position: initial;
 }
 .imp-social-icons {
-  color: #ffffff;
+  color: #fff;
   position: absolute;
   right: 7px;
   top: 7px;
@@ -12,7 +12,7 @@
   margin: 0 10px;
 }
 .imp-social-icons a {
-  color: #ffffff;
+  color: #fff;
   font-size: 24px;
   transition: all, 0.3s;
 }
@@ -67,7 +67,7 @@ a.icon:focus {
   text-decoration: none;
 }
 a.beyond {
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
 }
 @media (min-width: 768px) {
