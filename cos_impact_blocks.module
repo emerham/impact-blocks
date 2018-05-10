@@ -1,8 +1,10 @@
 <?php
+
 /**
  * @file
  * Creates a block to house the Social Media Icons.
  */
+
 /**
  * Implements hook_permission().
  */
@@ -21,13 +23,13 @@ function cos_impact_blocks_permission() {
 function cos_impact_blocks_menu() {
   $items = array();
   $items['admin/config/impact'] = array(
-    'title' => t('Impact Tools Box'),
-    'description' => t('Administer Impact Blocks'),
+    'title' => 'Impact Tools Box',
+    'description' => 'Administer Impact Blocks',
     'access arguments' => array('administer impact tools'),
   );
   $items['admin/config/impact/manage'] = array(
-    'title' => t('Impact Tools Settings'),
-    'description' => t('Change the icons, links and sort order of the tools block'),
+    'title' => 'Impact Tools Settings',
+    'description' => 'Change the icons, links and sort order of the tools block',
     'access arguments' => array('administer impact tools'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('cos_impact_tools_settings_form'),
@@ -36,8 +38,8 @@ function cos_impact_blocks_menu() {
     'file' => 'cos_impact_tools_settings.inc',
   );
   $items['admin/config/impact/add'] = array(
-    'title' => t('Add new Impact Box.'),
-    'description' => t('Add a new Impact tool box to the home page block.'),
+    'title' => 'Add new Impact Box.',
+    'description' => 'Add a new Impact tool box to the home page block.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('cos_impact_add_form'),
     'access arguments' => array('administer impact tools'),
@@ -45,8 +47,8 @@ function cos_impact_blocks_menu() {
     'file' => 'cos_impact_tools.add.inc',
   );
   $items['admin/config/impact/delete/%row_data'] = array(
-    'title' => t('Remove an Impact Box.'),
-    'description' => t('Remove an Impact tool box to the home page block.'),
+    'title' => 'Remove an Impact Box.',
+    'description' => 'Remove an Impact tool box to the home page block.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('cos_impact_remove_row_form', 4),
     'access arguments' => array('administer impact tools'),
@@ -59,6 +61,7 @@ function cos_impact_blocks_menu() {
 
 /**
  * Implements block_info()
+ *
  * This will create my blocks and place them into the appropriate sections.
  */
 function cos_impact_blocks_block_info() {
@@ -79,6 +82,9 @@ function cos_impact_blocks_block_info() {
   return $blocks;
 }
 
+/**
+ * Implements hook_block_configure().
+ */
 function cos_impact_blocks_block_configure($delta = '') {
   $form = array();
   if ($delta == 'impact_social') {
@@ -106,74 +112,77 @@ function cos_impact_blocks_block_configure($delta = '') {
     /*
     // Start container for links
     $form['link_container'] = array(
-      '#type' => 'container',
-      '#attributes' => array('class' => array('some-class')),
-      '#tree' => TRUE,
+    '#type' => 'container',
+    '#attributes' => array('class' => array('some-class')),
+    '#tree' => TRUE,
     );
     $form['link_container']['link_twitter'] = array(
-      '#type' => 'link_field',
-      '#title' => t('Twitter URL'),
-      '#field_name' => 'link_field_twitter',
-      '#language' => 'und',
-      '#field_parents' => array(),
-      '#delta' => 0,
-      '#description' => t('Enter your group\'s twitter page url.'),
-      '#default_value' => array(
-        'title' => variable_get('link_title_twitter', 'twitter'),
-        'url' => variable_get('link_url_twitter', ''),
-      ),
+    '#type' => 'link_field',
+    '#title' => t('Twitter URL'),
+    '#field_name' => 'link_field_twitter',
+    '#language' => 'und',
+    '#field_parents' => array(),
+    '#delta' => 0,
+    '#description' => t('Enter your group\'s twitter page url.'),
+    '#default_value' => array(
+    'title' => variable_get('link_title_twitter', 'twitter'),
+    'url' => variable_get('link_url_twitter', ''),
+    ),
     );
     $form['link_container']['link_facebook'] = array(
-      '#type' => 'link_field',
-      '#title' => t('Facebook URL'),
-      '#field_name' => 'link_field_facebook',
-      '#language' => 'und',
-      '#field_parents' => array(),
-      '#delta' => 0,
-      '#description' => t('Enter your facebook\'s group page url.'),
-      '#default_value' => array(
-        'title' => variable_get('link_title_facebook', 'facebook'),
-        'url' => variable_get('link_url_facebook', ''),
-      ),
+    '#type' => 'link_field',
+    '#title' => t('Facebook URL'),
+    '#field_name' => 'link_field_facebook',
+    '#language' => 'und',
+    '#field_parents' => array(),
+    '#delta' => 0,
+    '#description' => t('Enter your facebook\'s group page url.'),
+    '#default_value' => array(
+    'title' => variable_get('link_title_facebook', 'facebook'),
+    'url' => variable_get('link_url_facebook', ''),
+    ),
     );
     $form['link_container']['link_instagram'] = array(
-      '#type' => 'link_field',
-      '#title' => t('Instagram URL'),
-      '#field_name' => 'link_field_instagram',
-      '#language' => 'und',
-      '#field_parents' => array(),
-      '#delta' => 0,
-      '#description' => t('Enter your group\'s Instagram page url.'),
-      '#default_value' => array(
-        'title' => variable_get('link_title_instagram', 'Instagram'),
-        'url' => variable_get('link_url_instagram', ''),
-      ),
+    '#type' => 'link_field',
+    '#title' => t('Instagram URL'),
+    '#field_name' => 'link_field_instagram',
+    '#language' => 'und',
+    '#field_parents' => array(),
+    '#delta' => 0,
+    '#description' => t('Enter your group\'s Instagram page url.'),
+    '#default_value' => array(
+    'title' => variable_get('link_title_instagram', 'Instagram'),
+    'url' => variable_get('link_url_instagram', ''),
+    ),
     );
-    */
+     */
   }
   return $form;
 }
 
+/**
+ * Implements hook_block_save().
+ */
 function cos_impact_blocks_block_save($delta = '', $edit = array()) {
   if ($delta == 'impact_social') {
     variable_set('imp_twitter', $edit['imp_twitter']);
     variable_set('imp_facebook', $edit['imp_facebook']);
     variable_set('imp_instagram', $edit['imp_instagram']);
-    # Twitter url data
-    //variable_set('link_title_twitter',
+    // Twitter url data
+    // variable_set('link_title_twitter',
     //  $edit['link_container']['link_twitter']['title']);
-    //variable_set('link_url_twitter',
+    // variable_set('link_url_twitter',
     // $edit['link_container']['link_twitter']['url']);
-    # Facebook url data
-    //variable_set('link_title_facebook',
-    //$edit['link_container']['link_facebook']['title']);
-    //variable_set('link_url_facebook',
-    //$edit['link_container']['link_facebook']['url']);
-    # Instagram url data
-    //variable_set('link_title_instagram',
+    // Facebook url data
+    // variable_set('link_title_facebook',
+    // $edit['link_container']['link_facebook']['title']);
+    // variable_set('link_url_facebook',
+    // $edit['link_container']['link_facebook']['url']);
+    // Instagram url data
+    // variable_set('link_title_instagram',
     // $edit['link_container']['link_instagram']['title']);
-    //variable_set('link_url_instagram',
-    // $edit['link_container']['link_instagram']['url']);
+    // variable_set('link_url_instagram',
+    // $edit['link_container']['link_instagram']['url']);.
   }
 }
 
@@ -183,7 +192,7 @@ function cos_impact_blocks_block_save($delta = '', $edit = array()) {
 function cos_impact_blocks_block_view($delta = '') {
   switch ($delta) {
     case 'impact_social':
-      $block['subject'] = t('');
+      $block['subject'] = '';
 
       $items = array();
       $items['twitter'] = variable_get('imp_twitter');
@@ -191,29 +200,30 @@ function cos_impact_blocks_block_view($delta = '') {
       $items['instagram'] = variable_get('imp_instagram');
       /*
       foreach($result as $title => $link){
-        $items[] = array(
-          'data' => $link,
-          );
+      $items[] = array(
+      'data' => $link,
+      );
       }*/
 
       $block['content'] = array(
-        //'#theme' => 'item_list__impact_social',
+        // '#theme' => 'item_list__impact_social',.
         '#theme' => 'cos_impact_social_front',
         '#items' => $items,
       );
       /*
       $block['content'] = theme(
-        'cos_impact_social_front', array(
-        'items' => $items)
+      'cos_impact_social_front', array(
+      'items' => $items)
       );
-      */
+       */
       break;
+
     /*
      * This block will be for the toolbox block that will contain the
      *  icons for different options.
      */
     case 'impact_tools':
-      $block['subject'] = t('');
+      $block['subject'] = '';
       $items = array();
       $query = cos_impact_contents($delta);
       $i = 0;
@@ -225,11 +235,11 @@ function cos_impact_blocks_block_view($delta = '') {
       }
       unset($i);
       /*
-            $block['content'] = theme(
-              'cos_impact_tools_front', array(
-              'items' => $items)
-            );
-      */
+      $block['content'] = theme(
+      'cos_impact_tools_front', array(
+      'items' => $items)
+      );
+       */
       $block['content'] = array(
         '#theme' => 'cos_impact_tools_front',
         '#items' => $items,
@@ -247,7 +257,7 @@ function cos_impact_blocks_block_view($delta = '') {
 }
 
 /**
- * Custom Function to get block content
+ * Custom Function to get block content.
  */
 function cos_impact_contents($which_block) {
   switch ($which_block) {
@@ -258,6 +268,7 @@ function cos_impact_contents($which_block) {
         'instagram' => variable_get('link_url_instagram'),
       );
       return $results;
+
     case 'impact_tools':
       $query = db_select('cos_impact_blocks', 'cos')
         ->fields('cos', array('icon'))
@@ -294,7 +305,16 @@ function cos_impact_blocks_theme($existing, $type, $theme, $path) {
   return $themes;
 }
 
-function row_data_load($row_id){
+/**
+ * Load a row of data from the database.
+ *
+ * @param int $row_id
+ *   The row to load.
+ *
+ * @return mixed
+ *   An associative array of database results.
+ */
+function row_data_load($row_id) {
   $results = db_select('cos_impact_blocks', 'cos')
     ->fields('cos', array('id', 'title', 'url', 'icon'))
     ->condition('id', $row_id, '=')

@@ -1,10 +1,8 @@
 <?php
+
 /**
  * @file
- * Created by PhpStorm.
- * User: brabhamm.
- * Date: 12/11/15.
- * Time: 9:08 AM.
+ * Administrative form to manage the block.
  */
 
 /**
@@ -35,7 +33,7 @@ function cos_impact_tools_settings_form($form, &$form_state) {
           'fa-paper-plane' => t('Paper Airplane'),
           'fa-twitter' => t('Twitter'),
         ),
-        '#default_value' => check_plain($item->icon),
+        '#default_value' => $item->icon,
       ),
       'page_title' => array(
         '#type' => 'textfield',
@@ -44,7 +42,7 @@ function cos_impact_tools_settings_form($form, &$form_state) {
         '#size' => 20,
         '#title_display' => 'invisible',
         '#description' => t('Title will show up below the Icon'),
-        '#default_value' => check_plain($item->title),
+        '#default_value' => $item->title,
       ),
       'page_url' => array(
         '#type' => 'textfield',
@@ -52,14 +50,14 @@ function cos_impact_tools_settings_form($form, &$form_state) {
         '#required' => TRUE,
         '#title_display' => 'invisible',
         '#description' => t('Can be relative to Drupal or external.'),
-        '#default_value' => check_plain($item->url),
+        '#default_value' => $item->url,
       ),
       'weight' => array(
         '#type' => 'weight',
         '#title' => t('Weight'),
         '#delta' => 10,
         '#title_display' => 'invisible',
-        '#default_value' => check_plain($item->weight),
+        '#default_value' => $item->weight,
       ),
       'remove' => array(
         '#id' => 'row_' . $item->id,
@@ -111,6 +109,9 @@ function cos_impact_tools_settings_form($form, &$form_state) {
   return $form;
 }
 
+/**
+ * Implements hook_form_validate().
+ */
 function cos_impact_tools_settings_form_validate($form, &$form_state) {
 
 }
@@ -156,17 +157,11 @@ function theme_cos_impact_tools_settings_form($variables) {
 
 /**
  * Implements hook_form_submit().
- *
  */
 function cos_impact_tools_settings_form_submit($form, &$form_state) {
   variable_set('last_button_text', $form_state['values']['last_button']);
   variable_set('last_button_link', $form_state['values']['last_button_link']);
   foreach ($form_state['values']['cos_impact_tools'] as $id => $item) {
-    //db_query(
-    //  "UPDATE {cos_impact_blocks} SET weight = :weight WHERE id = :id",
-    //  array(':weight' => $item['weight'], ':id' => $id)
-    //);
-    // Better way to run a db update
     db_update('cos_impact_blocks')
       ->fields(array(
         'icon' => $item['select_icon'],

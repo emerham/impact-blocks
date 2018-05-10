@@ -1,13 +1,12 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: brabhamm
- * Date: 12/7/15
- * Time: 9:41 AM
+ * @file
+ * Install File for module.
  */
 
 /**
- * Implements hook_schema.
+ * Implements hook_schema().
  */
 function cos_impact_blocks_schema() {
   $schema['cos_impact_blocks'] = array(
@@ -53,7 +52,6 @@ function cos_impact_blocks_schema() {
 
   return $schema;
 }
-
 
 /**
  * Implements hook_install().
