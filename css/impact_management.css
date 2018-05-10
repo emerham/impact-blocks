@@ -26,7 +26,7 @@
   color: #ffffff;
 }
 .cos-btn-success:focus {
-  outline: 3px solid #D0E8CE;
+  outline: 3px solid #d0e8ce;
 }
 .cos-btn-danger {
   cursor: pointer;
@@ -56,5 +56,5 @@
   color: #ffffff;
 }
 .cos-btn-danger:focus {
-  outline: 3px solid #FFD8D8;
+  outline: 3px solid #ffd8d8;
 }

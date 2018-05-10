@@ -1,12 +1,12 @@
 <?php
+
 /**
  * @file
- * Adds a new row to the cos impact tools box
+ * Adds a new row to the cos impact tools box.
  */
+
 /**
  * Implements hook_form().
- * @param $form
- * @param $form_state
  */
 function cos_impact_add_form($form, &$form_state) {
   $form['toolbox_icon'] = array(
@@ -48,18 +48,14 @@ function cos_impact_add_form($form, &$form_state) {
 }
 
 /**
- * Implements hock_form_validate().
- * @param $form
- * @param $form_state
+ * Implements hook_form_validate().
  */
 function cos_impact_add_form_validate($form, &$form_state) {
 
 }
 
 /**
- * Implements hock_form_submit().
- * @param $form
- * @param $form_state
+ * Implements ho0k_form_submit().
  */
 function cos_impact_add_form_submit($form, &$form_state) {
   $fields_array = array(

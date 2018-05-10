@@ -1,8 +1,13 @@
 <?php
+
 /**
  * @file
+ * Remove row from DB.
  */
 
+/**
+ * Implements hook_form().
+ */
 function cos_impact_remove_row_form($form, &$form_state) {
   $form = array();
   $form['#item'] = $form_state['build_info']['args'][0];
@@ -21,13 +26,16 @@ function cos_impact_remove_row_form($form, &$form_state) {
   );
 }
 
+/**
+ * Implements hook_form_submit().
+ */
 function cos_impact_remove_row_form_submit($form_id, &$form_state) {
-  //dpm($form_state);
+  // dpm($form_state);
   if (isset($form_state['values']['confirm'])) {
     db_delete('cos_impact_blocks')
-    ->condition('id', $form_state['values']['row_delete'][0]['id'])
-    ->condition('title', $form_state['values']['row_delete'][0]['title'])
-    ->execute();
+      ->condition('id', $form_state['values']['row_delete'][0]['id'])
+      ->condition('title', $form_state['values']['row_delete'][0]['title'])
+      ->execute();
     drupal_set_message(t('Form Submitted, Thank You'), 'status');
     // Set to false to redirect.
     $form_state['rebuild'] = FALSE;
