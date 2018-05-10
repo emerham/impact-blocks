@@ -1,17 +1,17 @@
 // Color variables (appears count calculates by raw css)
-@osu-orange: #c34500; // Appears 5 times
-@white: #fff;
+$osu-orange: #c34500; // Appears 5 times
+$white: #fff;
 
 // Width variables (appears count calculates by raw css)
-@width2: 31%; // Appears 2 times
-@break1: 768px;
-@break2: 1200px;
+$width2: 31%; // Appears 2 times
+$break1: 768px;
+$break2: 1200px;
 #block-cos-impact-blocks-impact-social {
   position: initial;
 }
 
 .imp-social-icons {
-  color: @white;
+  color: $white;
   position: absolute;
   right: 7px;
   top: 7px;
@@ -20,7 +20,7 @@
     margin: 0 10px;
   }
   a {
-    color: @white;
+    color: $white;
     font-size: 24px;
     transition: all, 0.3s;
   }
@@ -28,10 +28,10 @@
 
 a.icon {
   &:hover {
-    color: @osu-orange;
+    color: $osu-orange;
   }
   &:focus {
-    color: @osu-orange;
+    color: $osu-orange;
   }
 }
 
@@ -48,7 +48,7 @@ a.icon {
   font-size: 35px;
   margin-right: 5px;
   text-align: center;
-  width: @width2;
+  width: $width2;
   a {
     color: #333333;
     text-decoration: none;
@@ -56,12 +56,12 @@ a.icon {
   }
   &:hover {
     a {
-      color: @osu-orange;
+      color: $osu-orange;
     }
   }
   &:focus {
     a {
-      color: @osu-orange;
+      color: $osu-orange;
     }
   }
   img {
@@ -82,23 +82,23 @@ a.icon {
   transition: all, 0.3s;
   width: 70%;
   &:hover {
-    background: @osu-orange;
+    background: $osu-orange;
     text-decoration: none;
   }
 }
 
 a.beyond {
-  color: @white;
+  color: $white;
   text-decoration: none;
 }
 
-@media (min-width: @break1) {
+@media (min-width: $break1) {
   .toolbox-container {
     display: block;
   }
 }
 
-@media (min-width: @break2) {
+@media (min-width: $break2) {
   .toolbox {
     width: 31%;
   }
