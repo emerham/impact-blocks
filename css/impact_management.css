@@ -12,18 +12,22 @@
   /* LTR */
   padding: 6px 10px;
   text-align: center;
-  transition: all, 0.3s; }
-  .cos-btn-success:hover {
-    background: #0a6700;
-    border-radius: 0;
-    border: none;
-    color: #fff; }
-  .cos-btn-success:active {
-    border-radius: 0;
-    border: none;
-    color: #fff; }
-  .cos-btn-success:focus {
-    outline: 3px solid #d0e8ce; }
+  transition: all, 0.3s;
+}
+.cos-btn-success:hover {
+  background: #0a6700;
+  border-radius: 0;
+  border: none;
+  color: #fff;
+}
+.cos-btn-success:active {
+  border-radius: 0;
+  border: none;
+  color: #fff;
+}
+.cos-btn-success:focus {
+  outline: 3px solid #d0e8ce;
+}
 
 .cos-btn-danger {
   cursor: pointer;
@@ -39,17 +43,21 @@
   font-size: 1.077em;
   font-family: "Lucida Grande", Verdana, sans-serif;
   background: #b73939;
-  transition: all, 0.3s; }
-  .cos-btn-danger:hover {
-    background: #900;
-    border-radius: 0;
-    border: none;
-    color: #fff; }
-  .cos-btn-danger:active {
-    border-radius: 0;
-    border: none;
-    color: #fff; }
-  .cos-btn-danger:focus {
-    outline: 3px solid #ffd8d8; }
+  transition: all, 0.3s;
+}
+.cos-btn-danger:hover {
+  background: #900;
+  border-radius: 0;
+  border: none;
+  color: #fff;
+}
+.cos-btn-danger:active {
+  border-radius: 0;
+  border: none;
+  color: #fff;
+}
+.cos-btn-danger:focus {
+  outline: 3px solid #ffd8d8;
+}
 
 /*# sourceMappingURL=impact_management.css.map */
